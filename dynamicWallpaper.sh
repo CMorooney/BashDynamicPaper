@@ -1,12 +1,15 @@
 #!/bin/bash
 [[ "$(uname -s)" = "Darwin" ]] && PATH="/usr/local/bin:${PATH}" && export PATH
 command -v gdate >/dev/null 2>&1 && date() { command gdate "${@}"; }
+PREV_WEATHER_DATA=/tmp/prev_weather.dat
 
 load_prev_weather () {
-    w_type=$(sed '1q;d' /tmp/prev_weather.dat)
-    t_type=$(sed '2q;d' /tmp/prev_weather.dat)
+    if test -f "$PREV_WEATHER_DATA"; then
+      w_type=$(sed '1q;d' /tmp/prev_weather.dat)
+      t_type=$(sed '2q;d' /tmp/prev_weather.dat)
 
-    rm /tmp/prev_weather.dat
+      rm /tmp/prev_weather.dat
+    fi
 }
 
 get_weather () {
@@ -117,7 +120,9 @@ set_pape () {
         fi
     fi
 
-    rm /tmp/prev_weather.dat
+    if test -f "$PREV_WEATHER_DATA"; then
+      rm /tmp/prev_weather.dat
+    fi
     echo "$w_type" >> /tmp/prev_weather.dat
     echo "$t_type" >> /tmp/prev_weather.dat
 }
