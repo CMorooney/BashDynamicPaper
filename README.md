@@ -1,3 +1,8 @@
+dynamic wallpaper based daemon for macos env
+the launch plist (example in repo com.calvin.*.plist) must be registered with the launchagent system, started, and copied to ~/Library/LaunchAgents
+
+Forked from ---
+
 # BashDynamicPaper
 Dynamic wallpaper setter written in bash that works on Linux and MacOS. Using all of the features, it 
 will change your wallpaper based both on the time of day and the weather. The time of day is divided 
